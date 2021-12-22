@@ -70,14 +70,14 @@ const EmployeeAdd = () => {
                                    {errors.EPhone &&
                                         <p className="text-danger">This field is required</p>
                                    }
-                                   <input className="form-control " id="EPicture" {...register("EPicture", { required: true })} placeholder="" defaultValue="" />
+                                   <input className="form-control " id="EPicture" {...register("EPicture", { required: true })} placeholder="" value="NULL" hidden />
                                    <label htmlFor="EBasicSalary" className="form-label mt-2">Employee BasicSalary</label>
                                    <input className="form-control" id="EBasicSalary" {...register("EBasicSalary", { required: true })} placeholder="" />
                                    {errors.EBasicSalary &&
                                         <p className="text-danger">This field is required</p>
                                    }
-                                   <input className="form-control " id="EFastiveBonus" {...register("EFastiveBonus", { required: true })} placeholder="" value="0" />
-                                   <input className="form-control " id="EPerformBonus" {...register("EPerformBonus", { required: true })} placeholder="" value="0" />
+                                   <input className="form-control " id="EFastiveBonus" {...register("EFastiveBonus", { required: true })} placeholder="" value="0" hidden />
+                                   <input className="form-control " id="EPerformBonus" {...register("EPerformBonus", { required: true })} placeholder="" value="0" hidden />
                                    <label htmlFor="ESchedule" className="form-label mt-2">Employee Schedule</label>
                                    <input className="form-control" id="ESchedule" {...register("ESchedule", { required: true })} placeholder="" />
                                    {errors.ESchedule &&

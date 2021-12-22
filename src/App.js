@@ -5,6 +5,7 @@ import Dashboard from './Components/Pages/Dashboard/Dashboard/Dashboard';
 import Navigation from './Components/Pages/Navigation/Navigation';
 import Footer from './Components/Pages/Footer/Footer';
 import MainPage from './Components/Pages/HomePage/MainPage/MainPage';
+import Login from './Components/Pages/Login/Login/Login';
 
 function App() {
   return (
@@ -17,6 +18,9 @@ function App() {
           </Route>
           <Route path="/home">
            <MainPage></MainPage>
+          </Route>
+          <Route path="/login">
+        <Login></Login>
           </Route>
           
        
@@ -40,7 +44,7 @@ function App() {
           </Route> */}
 
         </Switch>
-        <Footer></Footer>
+      
       </div>
     </BrowserRouter>
 

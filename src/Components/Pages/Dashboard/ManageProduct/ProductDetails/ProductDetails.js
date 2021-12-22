@@ -4,12 +4,26 @@ import { Modal } from 'react-bootstrap';
 const ProductDetails = (props) => {
      const [isOpenDetails, setIsOpenDetails] = useState(false);
      const [productDetails, setProductDetails] = useState([]);
+     const [categoryName, setCategoryName] = useState([]);
+     const [categoryid, setCategoryid] = useState([]);
      const showDetails = (id) => {
           console.log(id);
           setIsOpenDetails(true);
           fetch(`https://localhost:44344/api/Product/get/${id}`)
                .then(res => res.json())
-               .then(res => setProductDetails(res))
+               .then(res => {
+                    fetch(`https://localhost:44344/api/category/get/${res.CategoryId}`)
+                    .then(res => res.json())
+                    .then(result => {
+                        console.log(result.CategoryName)
+                         setCategoryName(result.CategoryName)
+                        
+               })
+              
+
+               setProductDetails(res)
+                 
+               })
      };
      const hideDetails = () => {
           setIsOpenDetails(false);
@@ -72,7 +86,7 @@ const ProductDetails = (props) => {
                                                                  <h6 className="mb-0">Category</h6>
                                                             </div>
                                                             <div className="col-sm-8 text-secondary">
-                                                                 {productDetails.CategoryId}
+                                                                 {categoryName}
                                                             </div>
                                                        </div>
                                                        <hr />

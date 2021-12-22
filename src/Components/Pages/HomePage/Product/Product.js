@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 const Product = () => {
      const [employees, setEmployees] = useState([]);
      useEffect(() => {
-          fetch('https://localhost:44344/api/Employee/All')
+          fetch('https://localhost:44344/api/product/All')
                .then(res => res.json())
                .then(result => setEmployees(result))
      }, [employees])
@@ -18,27 +18,29 @@ const Product = () => {
 
                <Container className="my-5">
                     <div className="text-center">
-                         <h5 className="text-secondary">The Top Places For</h5>
-                         <h1 className="text-success mb-5">Planning Your Holiday</h1>
+                         <h5 className="text-secondary">The Top Product For</h5>
+                         <h1 className="text-success mb-5">Buy </h1>
                     </div>
                     <Row className="g-3">
                          {
                               Object.keys(employees).length !== 0 &&
                               employees.map(employee =>
 
-                                   <Col md={3}>
-                                        <Card style={{ width: '18rem' }}>
-                                             <Card.Img variant="top" src="" />
+                                   <Col md={3} >
+                                        <Card style={{ width: '18rem' }} >
+                                             <Card.Img variant="top" src="https://i.pinimg.com/originals/70/84/f4/7084f4182630ae4bd2bcc9cbaa831d6e.png" />
                                              <Card.Body>
-                                                  <Card.Title>{employee.EName}</Card.Title>
+                                                  <Card.Title>{employee.PName}</Card.Title>
                                                   <Card.Text>
-                                                       Some quick example text to build on the card title and make up the bulk of
-                                                       the card's content.
+                                                  Description: {employee.PDescription}
                                                   </Card.Text>
-                                                  <Link to={`/placeOrder/${employee.EId}`}>
+                                                  <Card.Text>
+                                                  Price : {employee.PBasicPrice} 
+                                                  </Card.Text>
+                                                  <Link to={`/placeOrder/${employee.PId}`}>
                                                        <div className="text-center">
 
-                                                            <button className="btn btn-success mb-3 btn-sm">Book Now</button>
+                                                            <button className="btn btn-success mb-3 btn-sm">Buy Now</button>
                                                        </div>
                                                   </Link>
                                              </Card.Body>

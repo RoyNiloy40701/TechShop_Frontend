@@ -1,21 +1,44 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Modal } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
 
 const ProductAdd = () => {
      const [isOpenAddEmp, setIsOpenAddEmp] = React.useState(false);
+     const [categories, setCategories] = useState([]);
+     const [value, setValue] = useState("");
+     const [shops, setShops] = useState([]);
+     const [valueShop, setValueShop] = useState("");
      const { register, handleSubmit, formState: { errors }, reset } = useForm();
      const showAddEmpModal = () => {
           reset();
           setIsOpenAddEmp(true);
+          fetch('https://localhost:44344/api/Category/All')
+
+               .then(res => res.json())
+
+               .then(result => setCategories(result))
+
+          fetch('https://localhost:44344/api/Shop/All')
+
+               .then(res => res.json())
+
+               .then(result => setShops(result))
      };
      const hideAddEmpModal = () => {
           setIsOpenAddEmp(false);
      };
+     const handleChange = (e) => {
+
+          setValue(e.target.value);
+  
+        };
+
+
+
      const onSubmit = data => {
 
           console.log(JSON.stringify(data));
-        
+
           const url = `https://localhost:44344/api/Product/add`;
           fetch(url, {
                method: 'POST',
@@ -62,35 +85,49 @@ const ProductAdd = () => {
                                    }
                                    <label htmlFor="PDiscount " className="form-label mt-2">Discount Price</label>
                                    <input className="form-control" id="PDiscount " {...register("PDiscount", { required: true })} placeholder="" />
-                                   {errors.PDiscount  &&
+                                   {errors.PDiscount &&
                                         <p className="text-danger">This field is required</p>
                                    }
                                    <label htmlFor="PStock " className="form-label mt-2">Stock</label>
                                    <input className="form-control" id="PStock " {...register("PStock", { required: true })} placeholder="" />
-                                   {errors.PStock  &&
+                                   {errors.PStock &&
                                         <p className="text-danger">This field is required</p>
                                    }
-                                   <input className="form-control " id=" PPicture" {...register(" PPicture", { required: true })} placeholder="" defaultValue="" />
-                                  
+                                   <input className="form-control " id=" PPicture" {...register(" PPicture", { required: true })} placeholder="" value="NULL" hidden />
                                    <label htmlFor="PCategoryId" className="form-label mt-2">Category</label>
+                                   <select className="form-select" value={value} {...register("CategoryId", { required: true })} onChange={handleChange}>
+                                        {
+                                        categories.map(category =>
+                                                  <option value={category.CategoryId}>{category.CategoryName}</option>
+                                             )
+                                        }
+                                   </select>
+                                   <label htmlFor="ShopId" className="form-label mt-2">Shop</label>
+                                   <select className="form-select" value={value} {...register("ShopId", { required: true })} onChange={handleChange}>
+                                        {
+                                        shops.map(shop =>
+                                                  <option value={shop.ShopId}>{shop.ShopName}</option>
+                                             )
+                                        }
+                                   </select>
+                                   {/* <label htmlFor="PCategoryId" className="form-label mt-2">Category</label>
                                    <input className="form-control" id="PCategoryId" {...register("CategoryId", { required: true })} placeholder="" />
                                    {errors.PCategoryId &&
                                         <p className="text-danger">This field is required</p>
-                                   }
+                                   } */}
 
-                                   <label htmlFor="PShopId" className="form-label mt-2">Shop</label>
+                                   {/* <label htmlFor="PShopId" className="form-label mt-2">Shop</label>
                                    <input className="form-control" id="PShopId" {...register("PShopId", { required: true })} placeholder="" />
                                    {errors.PShopId &&
                                         <p className="text-danger">This field is required</p>
-                                   }
-                                   <label htmlFor="Review" className="form-label mt-2">Review</label>
-                                   <input className="form-control" id="Review" {...register("Review", { required: true })} placeholder="" />
-                                   {errors.Review &&
-                                        <p className="text-danger">This field is required</p>
-                                   } 
-                                    <input className="form-control " id="MId" {...register("MId", { required: true })} placeholder="" />
-                                    <input className="form-control " id="Rating" {...register("Rating", { required: true })} placeholder="" Value="1" />
-                                    <input className="form-control " id="PSoldQuantity" {...register("PSoldQuantity", { required: true })} placeholder="" Value="1" />
+                                   } */}
+                              
+                                   <input className="form-control" id="Review" {...register("Review", { required: true })} placeholder="" Value="This is good" hidden/>
+
+                                   <input className="form-control " id="MId" {...register("MId", { required: true })}  defaultValue="6" hidden />
+                                  
+                                   <input className="form-control " id="Rating" {...register("Rating", { required: true })} placeholder="" Value="3" hidden />
+                                   <input className="form-control " id="PSoldQuantity" {...register("PSoldQuantity", { required: true })} placeholder="" Value="0" hidden/>
                                    <p className="text-center mt-2">
                                         <input className="btn btn-success my-2" type="submit" value="Add Employee" />
                                    </p>
